@@ -35,8 +35,8 @@ namespace NetVoltr
         
         internal void ProcessServiceMessage(string message)
         {
-            string op = message.Remove(message.IndexOf(' '));
-            string arg = message.Remove(0, message.IndexOf(' ') + 1);
+            var op = message.Remove(message.IndexOf(' '));
+            var arg = message.Remove(0, message.IndexOf(' ') + 1);
             switch (op)
             {
                 case "subscribed":

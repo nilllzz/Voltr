@@ -24,14 +24,14 @@ namespace Runner
 
             while (true)
             {
-                string message = Console.ReadLine();
+                var message = Console.ReadLine();
                 await channel.Publish(message);
             }
         }
 
         private static void Voltr_MessageReceived(Channel source, string cid, byte[] messageBytes)
         {
-            string message = source.Parent.Encoding.GetString(messageBytes);
+            var message = source.Parent.Encoding.GetString(messageBytes);
             Console.WriteLine($"Received message from {cid}: {message}");
         }
     }

@@ -109,7 +109,7 @@ namespace NetVoltr
             var cidBytes = message.Take(separatorIndex).ToArray();
             var messageBytes = message.Skip(separatorIndex + 1).ToArray();
 
-            string cid = Encoding.ASCII.GetString(cidBytes);
+            var cid = Encoding.ASCII.GetString(cidBytes);
 
             DirectMessageReceived?.Invoke(this, cid, messageBytes);
         }
@@ -136,7 +136,7 @@ namespace NetVoltr
 
         private void ProcessGlobalServiceMessage(string message)
         {
-            string op = message.Remove(message.IndexOf(' '));
+            var op = message.Remove(message.IndexOf(' '));
             switch (op)
             {
                 case "connected":
@@ -176,8 +176,8 @@ namespace NetVoltr
 
             using (var br = new BinaryReader(stream, Encoding.UTF8, true))
             {
-                bool separator = false;
-                StringBuilder sb = new StringBuilder();
+                var separator = false;
+                var sb = new StringBuilder();
                 while (!separator)
                 {
                     var c = br.ReadChar();
@@ -187,9 +187,9 @@ namespace NetVoltr
                         separator = true;
                 }
 
-                int length = int.Parse(sb.ToString());
-                byte[] buffer = new byte[length];
-                int readLength = br.Read(buffer, 0, buffer.Length);
+                var length = int.Parse(sb.ToString());
+                var buffer = new byte[length];
+                var readLength = br.Read(buffer, 0, buffer.Length);
                 while (readLength < length)
                 {
                     await Task.Run(() => SpinWait.SpinUntil(() => stream.DataAvailable));
